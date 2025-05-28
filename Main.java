@@ -1,5 +1,5 @@
 import POJO.Colmeia;
-import OutPutStream.ColmeiaOutputStream;
+import Streams.ColmeiaOutputStream;
 import java.io.FileOutputStream;
 
 public class Main {
@@ -11,7 +11,7 @@ public class Main {
             };
 
             int qtdObjetos      = 2;
-            int bytesPorObjeto  = 150;   // agora serve só como “limite recomendado”
+            int bytesPorObjeto  = 150;
 
             // Console
             ColmeiaOutputStream cosConsole =

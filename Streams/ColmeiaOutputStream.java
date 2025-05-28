@@ -1,4 +1,4 @@
-package OutPutStream;
+package Streams;
 
 import POJO.Colmeia;
 import java.io.DataOutputStream;
