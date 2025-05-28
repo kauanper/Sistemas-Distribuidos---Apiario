@@ -1,53 +1,63 @@
 package OutPutStream;
 
 import POJO.Colmeia;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 
 public class ColmeiaOutputStream extends OutputStream {
-    private Colmeia[] colmeias;
-    private int quantidade;
-    private int bytesPorObjeto;
-    private OutputStream destino;
 
-    public ColmeiaOutputStream(Colmeia[] colmeias, int quantidade, int bytesPorObjeto, OutputStream destino) {
-        this.colmeias = colmeias;
-        this.quantidade = quantidade;
-        this.bytesPorObjeto = bytesPorObjeto;
-        this.destino = destino;
+    private final Colmeia[] colmeias;
+    private final int quantidade;
+    private final int bytesPorObjeto;
+    private final OutputStream destinoOriginal;
+    private final DataOutputStream destino;
+
+    public ColmeiaOutputStream(Colmeia[] colmeias,
+                               int quantidade,
+                               int bytesPorObjeto,
+                               OutputStream destino) {
+        this.colmeias        = colmeias;
+        this.quantidade      = quantidade;
+        this.bytesPorObjeto  = bytesPorObjeto;
+        this.destinoOriginal = destino;                  // salva referência original
+        this.destino         = new DataOutputStream(destino);  // embrulha com DataOutputStream
     }
 
+    //Mantém compatibilidade com OutputStream
     @Override
     public void write(int b) throws IOException {
-        // Escrita de 1 byte direto (usado apenas por compatibilidade)
         destino.write(b);
     }
 
+    // Serializa e envia todos os objetos solicitados
     public void enviar() throws IOException {
         for (int i = 0; i < quantidade && i < colmeias.length; i++) {
             Colmeia c = colmeias[i];
 
-            String dados = "ID: " + c.getId()
-                    + " | Capacidade Abelhas: " + c.getCapacidadeAbelhas()
-                    + " | Capacidade Mel: " + c.getCapacidadeMel();
+            // serializa atributos
+            String payload = "ID=" + c.getId()
+                    + ";ABELHAS=" + c.getCapacidadeAbelhas()
+                    + ";MEL=" + c.getCapacidadeMel();
+            byte[] dados = payload.getBytes(StandardCharsets.UTF_8);
 
-            byte[] dadosBytes = dados.getBytes(StandardCharsets.UTF_8);
+            // validação opcional
+            if (dados.length > bytesPorObjeto) {
+                System.err.printf(
+                        "Aviso: objeto %d excedeu o limite (%d > %d bytes).%n",
+                        i, dados.length, bytesPorObjeto);
+            }
 
-            if (dadosBytes.length > bytesPorObjeto) {
-                // corta se passar do limite
-                byte[] cortado = new byte[bytesPorObjeto];
-                System.arraycopy(dadosBytes, 0, cortado, 0, bytesPorObjeto);
-                destino.write(cortado);
-            } else {
-                destino.write(dadosBytes);
-                // completa com espaço caso seja menor
-                for (int j = dadosBytes.length; j < bytesPorObjeto; j++) {
-                    destino.write(' ');
-                }
+            // envia tamanho e dados
+            destino.writeInt(dados.length);
+            destino.write(dados);
+
+            // quebra de linha se for System.out
+            if (destinoOriginal == System.out) {
+                destino.write('\n');
             }
         }
-
         destino.flush();
     }
 

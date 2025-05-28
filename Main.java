@@ -1,36 +1,32 @@
 import POJO.Colmeia;
 import OutPutStream.ColmeiaOutputStream;
-
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 
 public class Main {
     public static void main(String[] args) {
         try {
-            // Criar array de colmeias
             Colmeia[] colmeias = {
                     new Colmeia(100, 50),
                     new Colmeia(120, 60)
             };
 
-            int quantidade = 2;
-            int bytesPorObjeto = 80;
+            int qtdObjetos      = 2;
+            int bytesPorObjeto  = 150;   // agora serve só como “limite recomendado”
 
-            // Teste 1: Saída padrão
-            OutputStream destino1 = System.out;
-            ColmeiaOutputStream cos1 = new ColmeiaOutputStream(colmeias, quantidade, bytesPorObjeto, destino1);
-            cos1.enviar();
+            // Console
+            ColmeiaOutputStream cosConsole =
+                    new ColmeiaOutputStream(colmeias, qtdObjetos, bytesPorObjeto, System.out);
+            cosConsole.enviar();
 
-            System.out.println("\n\n--- Escrita em arquivo ---");
+            // Arquivo
+            System.out.println("\n--- gravando em arquivo ---");
+            try (FileOutputStream fos = new FileOutputStream("colmeias_output.txt")) {
+                ColmeiaOutputStream cosFile =
+                        new ColmeiaOutputStream(colmeias, qtdObjetos, bytesPorObjeto, fos);
+                cosFile.enviar(); // o close() do try-with-resources fecha tudo
+            }
 
-            // Teste 2: Arquivo
-            OutputStream destino2 = new FileOutputStream("colmeias_output.txt");
-            ColmeiaOutputStream cos2 = new ColmeiaOutputStream(colmeias, quantidade, bytesPorObjeto, destino2);
-            cos2.enviar();
-            cos2.close();
-
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
