@@ -1,10 +1,11 @@
 package POJO;
 
+import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.UUID;
 
-public class Colmeia implements Inspecao {
+public class Colmeia implements Serializable {
     private String id;
     private int capacidadeAbelhas;
     private int capacidadeMel;

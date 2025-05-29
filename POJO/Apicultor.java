@@ -1,16 +1,19 @@
 package POJO;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class Apicultor {
+public class Apicultor implements Serializable {
     private String nome;
     private String id;
     private List<Colmeia> colmeias;
 
-    public Apicultor(String nome, String id) {
+    public Apicultor(String nome) {
         this.nome = nome;
-        this.id = this.id = UUID.randomUUID().toString();
+        this.id = UUID.randomUUID().toString();
+        this.colmeias = new ArrayList<>();
     }
 
     public String getNome() {
