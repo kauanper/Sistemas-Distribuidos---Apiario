@@ -15,10 +15,8 @@ public class Servidor {
                 try (Socket clienteSocket = serverSocket.accept()) {
                     System.out.println("Cliente conectado: " + clienteSocket.getInetAddress());
 
-                    // Usa o InputStream original do Java com nome completo
                     java.io.InputStream fluxoEntrada = clienteSocket.getInputStream();
 
-                    // Usa seu InputStream customizado
                     ColmeiaInputStream entradaColmeia = new ColmeiaInputStream(fluxoEntrada);
 
                     String dados;

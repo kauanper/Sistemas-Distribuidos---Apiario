@@ -8,12 +8,11 @@ import java.net.Socket;
 
 public class Cliente {
     public static void main(String[] args) {
-        String host = "localhost"; // ou IP do servidor
+        String host = "localhost";
         int porta = 1234;
 
         try (Socket socket = new Socket(host, porta)) {
 
-            // Array de colmeias para enviar
             Colmeia[] colmeias = {
                     new Colmeia(1, 100),
                     new Colmeia(2, 150),
