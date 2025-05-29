@@ -21,39 +21,33 @@ public class ColmeiaOutputStream extends OutputStream {
         this.colmeias        = colmeias;
         this.quantidade      = quantidade;
         this.bytesPorObjeto  = bytesPorObjeto;
-        this.destinoOriginal = destino;                  // salva referência original
-        this.destino         = new DataOutputStream(destino);  // embrulha com DataOutputStream
+        this.destinoOriginal = destino;
+        this.destino         = new DataOutputStream(destino);
     }
 
-    //Mantém compatibilidade com OutputStream
     @Override
     public void write(int b) throws IOException {
         destino.write(b);
     }
 
-    // Serializa e envia todos os objetos solicitados
     public void enviar() throws IOException {
         for (int i = 0; i < quantidade && i < colmeias.length; i++) {
             Colmeia c = colmeias[i];
 
-            // serializa atributos
             String payload = "ID=" + c.getId()
                     + ";ABELHAS=" + c.getCapacidadeAbelhas()
                     + ";MEL=" + c.getCapacidadeMel();
             byte[] dados = payload.getBytes(StandardCharsets.UTF_8);
 
-            // validação opcional
             if (dados.length > bytesPorObjeto) {
                 System.err.printf(
                         "Aviso: objeto %d excedeu o limite (%d > %d bytes).%n",
                         i, dados.length, bytesPorObjeto);
             }
 
-            // envia tamanho e dados
             destino.writeInt(dados.length);
             destino.write(dados);
 
-            // quebra de linha se for System.out
             if (destinoOriginal == System.out) {
                 destino.write('\n');
             }
