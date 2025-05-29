@@ -1,8 +1,11 @@
 package TCP;
 
-import Streams.ColmeiaInputStream;
+import POJO.Apicultor;
+import Streams.ApicultorInputStream;
+
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.io.InputStream;
 
 public class Servidor {
     public static void main(String[] args) {
@@ -17,15 +20,16 @@ public class Servidor {
                     clienteSocket = serverSocket.accept();
                     System.out.println("Cliente conectado: " + clienteSocket.getInetAddress());
 
-                    java.io.InputStream fluxoEntrada = clienteSocket.getInputStream();
-                    ColmeiaInputStream entradaColmeia = new ColmeiaInputStream(fluxoEntrada);
+                    InputStream fluxoEntrada = clienteSocket.getInputStream();
+                    ApicultorInputStream entradaApicultor = new ApicultorInputStream(fluxoEntrada);
 
-                    String dados;
-                    while ((dados = entradaColmeia.lerObjetoComoTexto()) != null) {
-                        System.out.println("Colmeia recebida: " + dados);
+                    Apicultor[] apicultoresRecebidos = entradaApicultor.lerApicultores();
+
+                    for (Apicultor a : apicultoresRecebidos) {
+                        System.out.println("Apicultor recebido: " + a.getNome() + " - ID: " + a.getId());
                     }
 
-                    entradaColmeia.close();
+                    entradaApicultor.close();
                     clienteSocket.close();
                     System.out.println("Cliente desconectado.");
 

@@ -1,7 +1,7 @@
 package TCP;
 
-import POJO.Colmeia;
-import Streams.ColmeiaOutputStream;
+import POJO.Apicultor;
+import Streams.ApicultorOutputStream;
 
 import java.io.OutputStream;
 import java.net.Socket;
@@ -15,23 +15,22 @@ public class Cliente {
 
             System.out.println("Conectado com sucesso ao servidor em " + host + ":" + porta);
 
-            Colmeia[] colmeias = {
-                    new Colmeia(1, 100),
-                    new Colmeia(2, 150),
+            Apicultor[] apicultores = {
+                    new Apicultor("João"),
+                    new Apicultor("Maria"),
             };
 
             OutputStream saida = socket.getOutputStream();
 
-            ColmeiaOutputStream colmeiaOut = new ColmeiaOutputStream(
-                    colmeias,
-                    colmeias.length,
-                    256,
+            ApicultorOutputStream apicultorOut = new ApicultorOutputStream(
+                    apicultores,
+                    apicultores.length,
                     saida
             );
 
-            colmeiaOut.enviar();
+            apicultorOut.close();
+
             System.out.println("Dados enviados com sucesso.");
-            colmeiaOut.close();
 
         } catch (Exception e) {
             System.err.println("Erro ao conectar ou enviar dados: " + e.getMessage());
