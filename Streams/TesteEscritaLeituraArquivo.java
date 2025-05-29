@@ -37,7 +37,7 @@ public class TesteEscritaLeituraArquivo {
 
         FileInputStream fis = new FileInputStream("C:\\Users\\kauan\\OneDrive\\Área de Trabalho\\Pasta das Pastas\\Distribuidos\\GestãoApiario\\colmeias_output.txt");
 
-        InputStream stream = new InputStream(fis);
+        ColmeiaInputStream stream = new ColmeiaInputStream(fis);
 
         String resultado = stream.lerObjetoComoTexto();
         while (resultado != null) {

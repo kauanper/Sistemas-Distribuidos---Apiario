@@ -4,11 +4,11 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-public class InputStream extends java.io.InputStream {
+public class ColmeiaInputStream extends java.io.InputStream {
 
     private final DataInputStream origem;
 
-    public InputStream(java.io.InputStream origem) {
+    public ColmeiaInputStream(java.io.InputStream origem) {
         this.origem = new DataInputStream(origem);
     }
 
@@ -17,11 +17,12 @@ public class InputStream extends java.io.InputStream {
         return origem.read();
     }
 
+    // Lê e desempacota um "objeto" serializado como texto
     public String lerObjetoComoTexto() throws IOException {
         try {
-            int tamanho = origem.readInt();
+            int tamanho = origem.readInt(); // lê o tamanho do payload
             byte[] buffer = new byte[tamanho];
-            origem.readFully(buffer);
+            origem.readFully(buffer); // lê o conteúdo
             return new String(buffer, StandardCharsets.UTF_8);
         } catch (IOException e) {
             return null;
