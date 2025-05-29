@@ -12,11 +12,12 @@ public class Servidor {
             System.out.println("Servidor rodando na porta " + porta);
 
             while (true) {
-                try (Socket clienteSocket = serverSocket.accept()) {
+                Socket clienteSocket = null;
+                try {
+                    clienteSocket = serverSocket.accept();
                     System.out.println("Cliente conectado: " + clienteSocket.getInetAddress());
 
                     java.io.InputStream fluxoEntrada = clienteSocket.getInputStream();
-
                     ColmeiaInputStream entradaColmeia = new ColmeiaInputStream(fluxoEntrada);
 
                     String dados;
@@ -25,9 +26,14 @@ public class Servidor {
                     }
 
                     entradaColmeia.close();
+                    clienteSocket.close();
                     System.out.println("Cliente desconectado.");
+
                 } catch (Exception e) {
                     System.err.println("Erro na conexão com cliente: " + e.getMessage());
+                    if (clienteSocket != null && !clienteSocket.isClosed()) {
+                        try { clienteSocket.close(); } catch (Exception ex) {}
+                    }
                 }
             }
 
