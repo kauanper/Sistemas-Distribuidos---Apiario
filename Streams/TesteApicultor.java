@@ -25,7 +25,7 @@ public class TesteApicultor {
     }
 
     private static void testeArquivo(Apicultor[] apicultores) throws Exception {
-        File file = new File("apicultores.bin");
+        File file = new File("Streams/apicultores.bin");
 
         try (OutputStream fos = new FileOutputStream(file)) {
             new ApicultorOutputStream(apicultores, apicultores.length, fos);
@@ -44,12 +44,10 @@ public class TesteApicultor {
     private static void testeByteArray(Apicultor[] apicultores) throws Exception {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
-        // Escrever na memória
         new ApicultorOutputStream(apicultores, apicultores.length, baos);
 
         byte[] dados = baos.toByteArray();
 
-        // Ler da memória
         ByteArrayInputStream bais = new ByteArrayInputStream(dados);
         ApicultorInputStream ais = new ApicultorInputStream(bais);
 
