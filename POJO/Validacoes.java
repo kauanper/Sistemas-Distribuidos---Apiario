@@ -1,6 +1,6 @@
 package POJO;
 
-public interface ValidacoesColmeia {
+public interface Validacoes {
     default boolean verificarIdExistente(Colmeia colmeia) {
         return colmeia != null;
     }
