@@ -20,7 +20,7 @@ public class ColmeiaService {
 
         ApicultorRepository.salvarOuAtualizar(apicultor);
 
-        return "Colmeia criada com sucesso!\n" + novaColmeia.toString();
+        return "Colmeia criada com sucesso!\n" + novaColmeia;
     }
 
     public String listarColmeiasPorApicultor(Apicultor apicultorRecebido) {

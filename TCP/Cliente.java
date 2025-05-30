@@ -12,7 +12,10 @@ public class Cliente {
         int porta = 1234;
         Scanner scanner = new Scanner(System.in);
 
-        Apicultor apicultor = new Apicultor("João");
+        // Perguntar o nome do apicultor antes do menu
+        System.out.print("Digite o nome do apicultor: ");
+        String nomeApicultor = scanner.nextLine();
+        Apicultor apicultor = new Apicultor(nomeApicultor);
 
         while (true) {
             System.out.println("Menu:");
@@ -22,6 +25,8 @@ public class Cliente {
             System.out.print("Escolha uma opção: ");
 
             int opcao = scanner.nextInt();
+            scanner.nextLine(); // Consumir a quebra de linha pendente
+
             if (opcao == 0) {
                 System.out.println("Saindo...");
                 break;
@@ -41,6 +46,7 @@ public class Cliente {
                     int capacidadeAbelhas = scanner.nextInt();
                     System.out.print("Digite a capacidade de mel: ");
                     int capacidadeMel = scanner.nextInt();
+                    scanner.nextLine(); // Consumir a quebra de linha pendente
 
                     dos.writeInt(capacidadeAbelhas);
                     dos.writeInt(capacidadeMel);
@@ -66,8 +72,7 @@ public class Cliente {
                     respostaCompleta.append(linha).append("\n");
                 }
 
-                System.out.println("Resposta do servidor:\n" + respostaCompleta.toString());
-
+                System.out.println("\nResposta do servidor:\n" + respostaCompleta.toString());
 
             } catch (Exception e) {
                 System.err.println("Erro ao conectar ou enviar dados: " + e.getMessage());

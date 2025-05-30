@@ -48,6 +48,8 @@ public class Servidor {
 
                             resposta = colmeiaService.listarColmeiasPorApicultor(apicultorListar);
                             break;
+
+
                         default:
                             resposta = "Opção inválida.";
                     }
