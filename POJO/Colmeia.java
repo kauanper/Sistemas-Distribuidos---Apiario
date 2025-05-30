@@ -1,10 +1,11 @@
 package POJO;
 
-import java.time.LocalTime;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class Colmeia implements Inspecao {
+public class Colmeia implements Serializable {
     private String id;
     private int capacidadeAbelhas;
     private int capacidadeMel;
@@ -16,6 +17,7 @@ public class Colmeia implements Inspecao {
         this.capacidadeMel = capacidadeMel;
         this.rainhaExist = false;
         this.id = UUID.randomUUID().toString();
+        this.abelhas = new ArrayList<>(); // Lista inicializada corretamente
     }
 
     public String getId() {
@@ -34,19 +36,30 @@ public class Colmeia implements Inspecao {
         return abelhas.size();
     }
 
+    public List<Abelha> getAbelhas() {
+        return abelhas;
+    }
+
     public void setRainhaExist(boolean rainhaExist) {
         this.rainhaExist = rainhaExist;
     }
 
-    public int verificarQtdMelAtual(){
-        return 1;
+    public boolean verificarRainha() {
+        return rainhaExist;
     }
 
-    public boolean vericarLimiteAbelhas(){
-        return false;
+    public boolean vericarLimiteAbelhas() {
+        return qtdAtualAbelhas() < capacidadeAbelhas;
     }
 
-    public boolean verificarRainha(){
-        return false;
+    @Override
+    public String toString() {
+        return "Colmeia {" +
+                "\n  ID: " + id +
+                "\n  Capacidade de Abelhas: " + capacidadeAbelhas +
+                "\n  Capacidade de Mel: " + capacidadeMel +
+                "\n  Quantidade Atual de Abelhas: " + (abelhas != null ? abelhas.size() : 0) +
+                "\n  Possui Rainha: " + rainhaExist +
+                "\n}";
     }
 }
