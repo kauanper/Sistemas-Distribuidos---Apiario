@@ -44,11 +44,9 @@ public class Cliente {
                 }
 
             } else {
-                // Cliente recebe lista de candidatos
-                System.out.println("Lista de candidatos:");
-                String candidato;
-                while (!(candidato = in.readLine()).equals("FIM")) {
-                    System.out.println("- " + candidato);
+                String linha;
+                while (!(linha = in.readLine()).equals("FIM")) {
+                    System.out.println("- " + linha);
                 }
 
                 System.out.print("Digite o nome do candidato para votar: ");
