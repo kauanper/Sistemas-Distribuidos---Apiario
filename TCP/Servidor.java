@@ -1,6 +1,7 @@
 package TCP;
 
 import POJO.Apicultor;
+import Services.ColmeiaService;
 import Streams.ApicultorInputStream;
 import java.io.*;
 import java.net.ServerSocket;
@@ -9,6 +10,7 @@ import java.net.Socket;
 public class Servidor {
     public static void main(String[] args) {
         int porta = 1234;
+        ColmeiaService colmeiaService = new ColmeiaService(); // Instância do service
 
         try (ServerSocket serverSocket = new ServerSocket(porta)) {
             System.out.println("Servidor rodando na porta " + porta);
@@ -25,21 +27,25 @@ public class Servidor {
                     int opcao = dis.readInt();
                     System.out.println("Opção recebida: " + opcao);
 
-                    ApicultorInputStream entradaApicultor = new ApicultorInputStream(dis);
-                    Apicultor[] apicultoresRecebidos = entradaApicultor.lerApicultores();
-
-                    for (Apicultor a : apicultoresRecebidos) {
-                        System.out.println("Apicultor recebido: " + a.getNome() + " - ID: " + a.getId());
-                    }
-
                     String resposta;
+
                     switch (opcao) {
                         case 1:
-                            resposta = "Você escolheu a opção 1!";
+                            int capacidadeAbelhas = dis.readInt();
+                            int capacidadeMel = dis.readInt();
+
+                            ApicultorInputStream entradaApicultor = new ApicultorInputStream(dis);
+                            Apicultor[] apicultoresRecebidos = entradaApicultor.lerApicultores();
+
+                            System.out.println("Apicultor: " + apicultoresRecebidos[0].getNome());
+
+                            resposta = colmeiaService.criarColmeia(capacidadeAbelhas, capacidadeMel, apicultoresRecebidos[0]);
                             break;
+
                         case 2:
                             resposta = "Opção 2 selecionada!";
                             break;
+
                         default:
                             resposta = "Opção inválida.";
                     }
@@ -48,7 +54,6 @@ public class Servidor {
                     PrintWriter pw = new PrintWriter(saida, true);
                     pw.println(resposta);
 
-                    entradaApicultor.close();
                     clienteSocket.close();
                     System.out.println("Cliente desconectado.");
 
