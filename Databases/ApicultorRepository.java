@@ -4,6 +4,7 @@ import POJO.Apicultor;
 
 import java.util.*;
 
+//banco de dados em memoria
 public class ApicultorRepository {
     private static final Map<String, Apicultor> apicultores = new HashMap<>();
 
@@ -15,13 +16,5 @@ public class ApicultorRepository {
         return apicultores.get(id);
     }
 
-    public static Apicultor buscarPorNome(String nome) {
-        for (Apicultor a : apicultores.values()) {
-            if (a.getNome().equalsIgnoreCase(nome)) {
-                return a;
-            }
-        }
-        return null;
-    }
 }
 

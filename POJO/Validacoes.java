@@ -1,7 +1,7 @@
 package POJO;
 
-public interface Inspecao {
-    int verificarQtdMelAtual();
+public interface Validacoes {
+    boolean verificarIdExistente();
     boolean vericarLimiteAbelhas();
     boolean verificarRainha();
 }
