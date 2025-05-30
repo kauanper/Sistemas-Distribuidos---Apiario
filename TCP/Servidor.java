@@ -2,10 +2,9 @@ package TCP;
 
 import POJO.Apicultor;
 import Streams.ApicultorInputStream;
-
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.io.InputStream;
 
 public class Servidor {
     public static void main(String[] args) {
@@ -20,14 +19,34 @@ public class Servidor {
                     clienteSocket = serverSocket.accept();
                     System.out.println("Cliente conectado: " + clienteSocket.getInetAddress());
 
-                    InputStream fluxoEntrada = clienteSocket.getInputStream();
-                    ApicultorInputStream entradaApicultor = new ApicultorInputStream(fluxoEntrada);
+                    InputStream entradaBruta = clienteSocket.getInputStream();
+                    DataInputStream dis = new DataInputStream(entradaBruta);
 
+                    int opcao = dis.readInt();
+                    System.out.println("Opção recebida: " + opcao);
+
+                    ApicultorInputStream entradaApicultor = new ApicultorInputStream(dis);
                     Apicultor[] apicultoresRecebidos = entradaApicultor.lerApicultores();
 
                     for (Apicultor a : apicultoresRecebidos) {
                         System.out.println("Apicultor recebido: " + a.getNome() + " - ID: " + a.getId());
                     }
+
+                    String resposta;
+                    switch (opcao) {
+                        case 1:
+                            resposta = "Você escolheu a opção 1!";
+                            break;
+                        case 2:
+                            resposta = "Opção 2 selecionada!";
+                            break;
+                        default:
+                            resposta = "Opção inválida.";
+                    }
+
+                    OutputStream saida = clienteSocket.getOutputStream();
+                    PrintWriter pw = new PrintWriter(saida, true);
+                    pw.println(resposta);
 
                     entradaApicultor.close();
                     clienteSocket.close();
