@@ -34,25 +34,20 @@ public class Servidor {
                             int capacidadeAbelhas = dis.readInt();
                             int capacidadeMel = dis.readInt();
 
-                            ApicultorInputStream entradaApicultor = new ApicultorInputStream(dis);
-                            Apicultor[] apicultoresRecebidos = entradaApicultor.lerApicultores();
+                            ApicultorInputStream entradaApicultor1 = new ApicultorInputStream(dis);
+                            Apicultor[] apicultoresRecebidos1 = entradaApicultor1.lerApicultores();
+                            Apicultor apicultorCriar = apicultoresRecebidos1[0];
 
-                            System.out.println("Apicultor: " + apicultoresRecebidos[0].getNome());
-
-                            resposta = colmeiaService.criarColmeia(capacidadeAbelhas, capacidadeMel, apicultoresRecebidos[0]);
+                            resposta = colmeiaService.criarColmeia(capacidadeAbelhas, capacidadeMel, apicultorCriar);
                             break;
 
                         case 2:
                             ApicultorInputStream entradaApicultor2 = new ApicultorInputStream(dis);
                             Apicultor[] apicultoresRecebidos2 = entradaApicultor2.lerApicultores();
-                            Apicultor apicultor = apicultoresRecebidos2[0];
+                            Apicultor apicultorListar = apicultoresRecebidos2[0];
 
-                            System.out.println("Apicultor recebido para listar colmeias: " + apicultor.getNome());
-
-                            resposta = colmeiaService.listarColmeiasPorApicultor(apicultor);
+                            resposta = colmeiaService.listarColmeiasPorApicultor(apicultorListar);
                             break;
-
-
                         default:
                             resposta = "Opção inválida.";
                     }
