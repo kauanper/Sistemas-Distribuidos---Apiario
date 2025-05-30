@@ -1,7 +1,10 @@
 package TCP;
 
 import POJO.Apicultor;
+import Services.AdicionarAbelhasService;
 import Services.ColmeiaService;
+import Services.CriarColmeiaService;
+import Services.ListarColmeiasService;
 import Streams.ApicultorInputStream;
 import java.io.*;
 import java.net.ServerSocket;
@@ -10,7 +13,10 @@ import java.net.Socket;
 public class Servidor {
     public static void main(String[] args) {
         int porta = 1234;
-        ColmeiaService colmeiaService = new ColmeiaService(); // Instância do service
+        ColmeiaService colmeiaService = new ColmeiaService();
+        AdicionarAbelhasService adicionarAbelhasService = new AdicionarAbelhasService();
+        CriarColmeiaService criarColmeiaService = new CriarColmeiaService();
+        ListarColmeiasService listarColmeiasService = new ListarColmeiasService();
 
         try (ServerSocket serverSocket = new ServerSocket(porta)) {
             System.out.println("Servidor rodando na porta " + porta);
@@ -38,7 +44,7 @@ public class Servidor {
                             Apicultor[] apicultoresRecebidos1 = entradaApicultor1.lerApicultores();
                             Apicultor apicultorCriar = apicultoresRecebidos1[0];
 
-                            resposta = colmeiaService.criarColmeia(capacidadeAbelhas, capacidadeMel, apicultorCriar);
+                            resposta = criarColmeiaService.execute(capacidadeAbelhas, capacidadeMel, apicultorCriar);
                             break;
 
                         case 2:
@@ -46,7 +52,7 @@ public class Servidor {
                             Apicultor[] apicultoresRecebidos2 = entradaApicultor2.lerApicultores();
                             Apicultor apicultorListar = apicultoresRecebidos2[0];
 
-                            resposta = colmeiaService.listarColmeiasPorApicultor(apicultorListar);
+                            resposta = listarColmeiasService.execute(apicultorListar);
                             break;
                         case 3:
                             String idColmeia = dis.readUTF();
@@ -57,7 +63,7 @@ public class Servidor {
                             Apicultor[] apicultoresRecebidos3 = entradaApicultor3.lerApicultores();
                             Apicultor apicultorAdicionar = apicultoresRecebidos3[0];
 
-                            resposta = colmeiaService.adicionarAbelhas( qtdOperarias, qtdRainhas, apicultorAdicionar, idColmeia);
+                            resposta = adicionarAbelhasService.execute( qtdOperarias, qtdRainhas, apicultorAdicionar, idColmeia);
                             break;
 
 

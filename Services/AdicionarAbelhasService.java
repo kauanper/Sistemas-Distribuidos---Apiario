@@ -3,7 +3,7 @@ package Services;
 import Databases.ApicultorRepository;
 import POJO.*;
 
-public class AdicionarAbelhasService implements ValidaApicultor, Validacoes {
+public class AdicionarAbelhasService implements ValidaApicultor, ValidacoesColmeia {
 
     public String execute(int operarias, int rainha, Apicultor apicultorRecebido, String idColmeia) {
         Apicultor apicultor = validarApicultorExistente(apicultorRecebido);
