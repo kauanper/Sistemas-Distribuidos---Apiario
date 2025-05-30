@@ -15,7 +15,7 @@ public class Cliente {
         Apicultor apicultor = new Apicultor("João");
 
         while (true) {
-            System.out.println("\nMenu:");
+            System.out.println("Menu:");
             System.out.println("digite 1 - Criar Colmeia");
             System.out.println("digite 2 - Opção 2");
             System.out.println("digite 0 - Sair");
@@ -45,17 +45,23 @@ public class Cliente {
                     dos.writeInt(capacidadeAbelhas);
                     dos.writeInt(capacidadeMel);
                     dos.flush();
+
+                    ApicultorOutputStream apicultorOut = new ApicultorOutputStream(
+                            new Apicultor[]{apicultor},
+                            1,
+                            saida
+                    );
                 }
 
-                ApicultorOutputStream apicultorOut = new ApicultorOutputStream(
-                        new Apicultor[]{apicultor},
-                        1,
-                        saida
-                );
-                apicultorOut.close();
+                StringBuilder respostaCompleta = new StringBuilder();
+                String linha;
 
-                String resposta = br.readLine();
-                System.out.println("Resposta do servidor: " + resposta);
+                while ((linha = br.readLine()) != null) {
+                    respostaCompleta.append(linha).append("\n");
+                }
+
+                System.out.println("Resposta do servidor:\n" + respostaCompleta.toString());
+
 
             } catch (Exception e) {
                 System.err.println("Erro ao conectar ou enviar dados: " + e.getMessage());

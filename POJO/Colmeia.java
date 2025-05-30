@@ -50,4 +50,15 @@ public class Colmeia implements Serializable {
     public boolean verificarRainha(){
         return false;
     }
+
+    @Override
+    public String toString() {
+        return "Colmeia {" +
+                "\n  ID: " + id +
+                "\n  Capacidade de Abelhas: " + capacidadeAbelhas +
+                "\n  Capacidade de Mel: " + capacidadeMel +
+                "\n  Quantidade Atual de Abelhas: " + (abelhas != null ? abelhas.size() : 0) +
+                "\n  Possui Rainha: " + rainhaExist +
+                "\n}";
+    }
 }

@@ -8,6 +8,7 @@ public class ColmeiaService {
     public String criarColmeia(int capacidadeAbelhas, int capacidadeMel, Apicultor apicultor) {
         Colmeia nova = new Colmeia(capacidadeAbelhas, capacidadeMel);
         apicultor.getColmeias().add(nova);
-        return "Colmeia criada com sucesso! ID: " + nova.getId();
+        String a = nova.toString();
+        return "Colmeia criada com sucesso!\n" + a;
     }
 }
