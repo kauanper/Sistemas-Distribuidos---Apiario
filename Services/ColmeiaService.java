@@ -6,8 +6,6 @@ import POJO.Colmeia;
 import POJO.Operaria;
 import POJO.Rainha;
 
-import java.util.List;
-
 public class ColmeiaService {
 
     public String criarColmeia(int capacidadeAbelhas, int capacidadeMel, Apicultor apicultorRecebido) {
@@ -55,24 +53,52 @@ public class ColmeiaService {
             }
         }
 
-        if (colmeia == null) {
+        InspecaoService inspecao = new InspecaoService();
+
+        if (!inspecao.verificarIdExistente(colmeia)) {
             return "Colmeia não encontrada.";
         }
 
-        for (int i = 0; i < operarias; i++) {
-            Operaria operaria = new Operaria("Operária", 1);
-            colmeia.getAbelhas().add(operaria);
+        int capacidadeTotal = colmeia.getCapacidadeAbelhas();
+        int abelhasAtuais = colmeia.qtdAtualAbelhas();
+        int espacoDisponivel = capacidadeTotal - abelhasAtuais;
+
+        int operariasAdicionadas = 0;
+        boolean rainhaAdicionada = false;
+
+        // Tenta adicionar rainha primeiro
+        if (rainha > 0 && inspecao.verificarRainha(colmeia) && espacoDisponivel > 0) {
+            colmeia.getAbelhas().add(new Rainha("Rainha", 3));
+            colmeia.setRainhaExist(true);
+            rainhaAdicionada = true;
+            espacoDisponivel--;
         }
 
-        for (int i = 0; i < rainha; i++) {
-            Rainha novaRainha = new Rainha("Rainha", 3);
-            colmeia.getAbelhas().add(novaRainha);
-            colmeia.setRainhaExist(true);
+        // Agora adiciona as operárias, respeitando o espaço restante
+        for (int i = 0; i < operarias && espacoDisponivel > 0; i++) {
+            colmeia.getAbelhas().add(new Operaria("Operária", 1));
+            operariasAdicionadas++;
+            espacoDisponivel--;
         }
 
         ApicultorRepository.salvarOuAtualizar(apicultor);
 
-        return "Abelhas adicionadas com sucesso na colmeia " + idColmeia + ".";
-    }
+        StringBuilder resposta = new StringBuilder("Resultado da operação:\n");
 
+        if (operariasAdicionadas > 0) {
+            resposta.append("- ").append(operariasAdicionadas).append(" abelha(s) operária(s) adicionada(s).\n");
+        }
+
+        if (rainhaAdicionada) {
+            resposta.append("- 1 abelha rainha adicionada.\n");
+        }
+
+        if (operariasAdicionadas < operarias || (!rainhaAdicionada && rainha > 0)) {
+            resposta.append("⚠️ Nem todas as abelhas foram adicionadas por falta de espaço na colmeia.\n");
+        }
+
+        resposta.append("Na colmeia ").append(idColmeia).append(".");
+
+        return resposta.toString();
+    }
 }

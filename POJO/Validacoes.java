@@ -1,7 +1,7 @@
 package POJO;
 
 public interface Validacoes {
-    boolean verificarIdExistente();
-    boolean vericarLimiteAbelhas();
-    boolean verificarRainha();
+    boolean verificarIdExistente(Colmeia colmeia);
+    boolean verificarLimiteAbelhas(Colmeia colmeia);
+    boolean verificarRainha(Colmeia colmeia);
 }

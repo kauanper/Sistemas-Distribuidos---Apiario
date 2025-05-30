@@ -17,7 +17,7 @@ public class Colmeia implements Serializable {
         this.capacidadeMel = capacidadeMel;
         this.rainhaExist = false;
         this.id = UUID.randomUUID().toString();
-        this.abelhas = new ArrayList<>(); // ← Lista inicializada corretamente
+        this.abelhas = new ArrayList<>(); // Lista inicializada corretamente
     }
 
     public String getId() {
@@ -37,23 +37,19 @@ public class Colmeia implements Serializable {
     }
 
     public List<Abelha> getAbelhas() {
-        return abelhas; // ← Getter adicionado
+        return abelhas;
     }
 
     public void setRainhaExist(boolean rainhaExist) {
         this.rainhaExist = rainhaExist;
     }
 
-    public int verificarQtdMelAtual() {
-        return 1;
+    public boolean verificarRainha() {
+        return rainhaExist;
     }
 
     public boolean vericarLimiteAbelhas() {
-        return false;
-    }
-
-    public boolean verificarRainha() {
-        return false;
+        return qtdAtualAbelhas() < capacidadeAbelhas;
     }
 
     @Override
