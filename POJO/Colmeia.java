@@ -1,7 +1,7 @@
 package POJO;
 
 import java.io.Serializable;
-import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,6 +17,7 @@ public class Colmeia implements Serializable {
         this.capacidadeMel = capacidadeMel;
         this.rainhaExist = false;
         this.id = UUID.randomUUID().toString();
+        this.abelhas = new ArrayList<>(); // ← Lista inicializada corretamente
     }
 
     public String getId() {
@@ -35,19 +36,23 @@ public class Colmeia implements Serializable {
         return abelhas.size();
     }
 
+    public List<Abelha> getAbelhas() {
+        return abelhas; // ← Getter adicionado
+    }
+
     public void setRainhaExist(boolean rainhaExist) {
         this.rainhaExist = rainhaExist;
     }
 
-    public int verificarQtdMelAtual(){
+    public int verificarQtdMelAtual() {
         return 1;
     }
 
-    public boolean vericarLimiteAbelhas(){
+    public boolean vericarLimiteAbelhas() {
         return false;
     }
 
-    public boolean verificarRainha(){
+    public boolean verificarRainha() {
         return false;
     }
 

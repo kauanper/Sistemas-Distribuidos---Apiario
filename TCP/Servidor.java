@@ -57,7 +57,7 @@ public class Servidor {
                             Apicultor[] apicultoresRecebidos3 = entradaApicultor3.lerApicultores();
                             Apicultor apicultorAdicionar = apicultoresRecebidos3[0];
 
-                            resposta = "colmeiaService.adicionarAbelhas(idColmeia, qtdOperarias, qtdRainhas, apicultorAdicionar);";
+                            resposta = colmeiaService.adicionarAbelhas( qtdOperarias, qtdRainhas, apicultorAdicionar, idColmeia);
                             break;
 
 

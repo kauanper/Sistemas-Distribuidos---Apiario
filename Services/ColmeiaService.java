@@ -3,6 +3,8 @@ package Services;
 import Databases.ApicultorRepository;
 import POJO.Apicultor;
 import POJO.Colmeia;
+import POJO.Operaria;
+import POJO.Rainha;
 
 import java.util.List;
 
@@ -37,4 +39,40 @@ public class ColmeiaService {
         }
         return sb.toString();
     }
+
+    public String adicionarAbelhas(int operarias, int rainha, Apicultor apicultorRecebido, String idColmeia) {
+        Apicultor apicultor = ApicultorRepository.buscarPorId(apicultorRecebido.getId());
+
+        if (apicultor == null) {
+            return "Apicultor não encontrado.";
+        }
+
+        Colmeia colmeia = null;
+        for (Colmeia c : apicultor.getColmeias()) {
+            if (c.getId().equals(idColmeia)) {
+                colmeia = c;
+                break;
+            }
+        }
+
+        if (colmeia == null) {
+            return "Colmeia não encontrada.";
+        }
+
+        for (int i = 0; i < operarias; i++) {
+            Operaria operaria = new Operaria("Operária", 1);
+            colmeia.getAbelhas().add(operaria);
+        }
+
+        for (int i = 0; i < rainha; i++) {
+            Rainha novaRainha = new Rainha("Rainha", 3);
+            colmeia.getAbelhas().add(novaRainha);
+            colmeia.setRainhaExist(true);
+        }
+
+        ApicultorRepository.salvarOuAtualizar(apicultor);
+
+        return "Abelhas adicionadas com sucesso na colmeia " + idColmeia + ".";
+    }
+
 }

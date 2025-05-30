@@ -1,15 +1,17 @@
 package POJO;
 
 import java.time.LocalTime;
+import java.util.UUID;
 
 public abstract class Abelha {
     private String categoria;
     private int qtdMelPorSeg;
-    private LocalTime entrouNaComeia;
+    private String id;
 
     public Abelha(String categoria, int qtdMelPorSeg) {
         this.categoria = categoria;
         this.qtdMelPorSeg = qtdMelPorSeg;
+        this.id = UUID.randomUUID().toString();
     }
 
     public String getCategoria() {
@@ -20,11 +22,4 @@ public abstract class Abelha {
         return qtdMelPorSeg;
     }
 
-    public LocalTime getEntrouNaComeia() {
-        return entrouNaComeia;
-    }
-
-    public void setEntrouNaComeia(LocalTime entrouNaComeia) {
-        this.entrouNaComeia = entrouNaComeia;
-    }
 }
