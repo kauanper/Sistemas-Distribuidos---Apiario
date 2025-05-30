@@ -1,7 +1,15 @@
 package POJO;
 
 public interface Validacoes {
-    boolean verificarIdExistente(Colmeia colmeia);
-    boolean verificarLimiteAbelhas(Colmeia colmeia);
-    boolean verificarRainha(Colmeia colmeia);
+    default boolean verificarIdExistente(Colmeia colmeia) {
+        return colmeia != null;
+    }
+
+    default boolean verificarLimiteAbelhas(Colmeia colmeia) {
+        return colmeia.qtdAtualAbelhas() < colmeia.getCapacidadeAbelhas();
+    }
+
+    default boolean verificarRainha(Colmeia colmeia) {
+        return !colmeia.verificarRainha();
+    }
 }

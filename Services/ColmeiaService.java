@@ -94,7 +94,7 @@ public class ColmeiaService {
         }
 
         if (operariasAdicionadas < operarias || (!rainhaAdicionada && rainha > 0)) {
-            resposta.append("⚠️ Nem todas as abelhas foram adicionadas por falta de espaço na colmeia.\n");
+            resposta.append("Nem todas as abelhas foram adicionadas por falta de espaço na colmeia.\n");
         }
 
         resposta.append("Na colmeia ").append(idColmeia).append(".");
