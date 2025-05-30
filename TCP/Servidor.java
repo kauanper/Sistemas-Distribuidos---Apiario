@@ -2,7 +2,6 @@ package TCP;
 
 import POJO.Apicultor;
 import Services.AdicionarAbelhasService;
-import Services.ColmeiaService;
 import Services.CriarColmeiaService;
 import Services.ListarColmeiasService;
 import Streams.ApicultorInputStream;
@@ -13,7 +12,6 @@ import java.net.Socket;
 public class Servidor {
     public static void main(String[] args) {
         int porta = 1234;
-        ColmeiaService colmeiaService = new ColmeiaService();
         AdicionarAbelhasService adicionarAbelhasService = new AdicionarAbelhasService();
         CriarColmeiaService criarColmeiaService = new CriarColmeiaService();
         ListarColmeiasService listarColmeiasService = new ListarColmeiasService();
