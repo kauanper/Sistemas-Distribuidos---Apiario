@@ -43,8 +43,15 @@ public class Servidor {
                             break;
 
                         case 2:
-                            resposta = "Opção 2 selecionada!";
+                            ApicultorInputStream entradaApicultor2 = new ApicultorInputStream(dis);
+                            Apicultor[] apicultoresRecebidos2 = entradaApicultor2.lerApicultores();
+                            Apicultor apicultor = apicultoresRecebidos2[0];
+
+                            System.out.println("Apicultor recebido para listar colmeias: " + apicultor.getNome());
+
+                            resposta = colmeiaService.listarColmeiasPorApicultor(apicultor);
                             break;
+
 
                         default:
                             resposta = "Opção inválida.";

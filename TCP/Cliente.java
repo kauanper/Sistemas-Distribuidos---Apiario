@@ -17,7 +17,7 @@ public class Cliente {
         while (true) {
             System.out.println("Menu:");
             System.out.println("digite 1 - Criar Colmeia");
-            System.out.println("digite 2 - Opção 2");
+            System.out.println("digite 2 - Ver Suas Colmeias");
             System.out.println("digite 0 - Sair");
             System.out.print("Escolha uma opção: ");
 
@@ -46,6 +46,12 @@ public class Cliente {
                     dos.writeInt(capacidadeMel);
                     dos.flush();
 
+                    ApicultorOutputStream apicultorOut = new ApicultorOutputStream(
+                            new Apicultor[]{apicultor},
+                            1,
+                            saida
+                    );
+                } else if (opcao == 2) {
                     ApicultorOutputStream apicultorOut = new ApicultorOutputStream(
                             new Apicultor[]{apicultor},
                             1,
