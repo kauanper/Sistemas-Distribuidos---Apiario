@@ -16,8 +16,8 @@ public class Servidor {
         ServerSocket servidor = new ServerSocket(1234);
         System.out.println("Servidor de votação iniciado...");
 
-        candidatos.add("Alice");
-        candidatos.add("Bob");
+        candidatos.add("Pep");
+        candidatos.add("Sung");
 
         agendarFimDaVotacao();
 
