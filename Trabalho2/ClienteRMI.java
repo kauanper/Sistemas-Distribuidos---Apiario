@@ -34,7 +34,7 @@ public class ClienteRMI {
                         oos.writeInt(Integer.parseInt(scanner.nextLine()));
                         break;
                     case 2:
-                        // apenas o apicultor
+                        // passa apenas o apicultor
                         break;
                     case 3:
                         System.out.print("ID da colmeia: ");
