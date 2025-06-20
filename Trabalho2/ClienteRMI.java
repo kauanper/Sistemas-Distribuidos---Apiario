@@ -1,6 +1,7 @@
 package Trabalho2;
 
 import POJO.Apicultor;
+import POJO.Colmeia;
 import Trabalho2.remote.ServicoRMI;
 
 import java.io.*;
@@ -18,7 +19,7 @@ public class ClienteRMI {
             Apicultor apicultor = new Apicultor(scanner.nextLine());
 
             while (true) {
-                System.out.println("1. Criar colmeia\n2. Listar colmeias\n3. Adicionar abelhas\n0. Sair");
+                System.out.println("1. Criar colmeia\n2. Listar colmeias\n3. Adicionar abelhas\n4. Remover colmeia\n0. Sair");
                 int opcao = Integer.parseInt(scanner.nextLine());
                 if (opcao == 0) break;
 
@@ -44,6 +45,11 @@ public class ClienteRMI {
                         System.out.print("Qtd rainhas: ");
                         oos.writeInt(Integer.parseInt(scanner.nextLine()));
                         break;
+                    case 4: //Adiçionar opção para remover colmeia
+                        System.out.print("ID da colmeia: ");
+                        oos.writeUTF(scanner.nextLine());
+                        break;
+
                 }
                 oos.flush();
                 byte[] argumentos = bos.toByteArray();
