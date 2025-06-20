@@ -44,7 +44,7 @@ As interações entre o cliente e o servidor para o gerenciamento de colmeias s�
 - Java RMI e Sockets
 - Programação orientada a objetos (POO)
 - TCP e UDP
-- Multi-threading no servidor
+- Multi-threading no servidor de votação
 
 ## Arquitetura
 
@@ -55,14 +55,6 @@ As interações entre o cliente e o servidor para o gerenciamento de colmeias s�
 - **Java RMI**: Utilizado para comunicação remota entre apicultor e servidor na gestão de colmeias;
 - **TCP/UDP**: Utilizados no módulo de votação para envio de votos e notificações.
 
-## Como Executar
-
-1. Compile todas as classes Java;
-2. Inicie o registro RMI com `rmiregistry`;
-3. Inicie o servidor;
-4. Execute o(s) cliente(s) para interagir com o sistema;
-5. Para a votação, certifique-se de definir o tempo limite antes do início.
-
-## Autor
+## Autores
 
 Desenvolvido por Francisco Kauan Pereira Cavalcante(554089) e .
