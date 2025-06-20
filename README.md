@@ -46,15 +46,6 @@ As interações entre o cliente e o servidor para o gerenciamento de colmeias s�
 - TCP e UDP
 - Multi-threading no servidor de votação
 
-## Arquitetura
-
-- **POJOs**: Representam as entidades principais (ex: `Apicultor`, `Colmeia`, `Abelha`);
-- **Interfaces de Validação**: Garantem a integridade e a consistência dos dados;
-- **Serviços**: Executam a lógica da aplicação com base nas requisições do apicultor;
-- **Servidor Multi-threaded**: Responsável por lidar com múltiplas conexões simultâneas;
-- **Java RMI**: Utilizado para comunicação remota entre apicultor e servidor na gestão de colmeias;
-- **TCP/UDP**: Utilizados no módulo de votação para envio de votos e notificações.
-
 ## Autores
 
-Desenvolvido por Francisco Kauan Pereira Cavalcante(554089) e .
+Desenvolvido por Francisco Kauan Pereira Cavalcante(554089) e Juan Pablo Rufino Mesquita(509982).
